@@ -64,6 +64,7 @@ def main():
             
         if kk_rct.colliderect(bb_rct):  # 練習5:衝突判定(bbとkk逆でもいい)
             print("Game Over")
+
             return
         
         key_lst = pg.key.get_pressed()
@@ -98,8 +99,6 @@ def main():
         if not tmr%500 and tmr//500 <= 10:
             vx *= avx  # 追加機能2:爆弾加速
             vy *= avy
-        print(vx)
-        print(vy)
         bb_rct.move_ip(vx, vy)  # 練習2:爆弾を移動
         yoko, tate =  check_bound(bb_rct)
         if not yoko:  # 横方向にはみ出たとき
