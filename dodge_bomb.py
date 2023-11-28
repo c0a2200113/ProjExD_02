@@ -5,6 +5,7 @@ import pygame as pg
 
 WIDTH, HEIGHT = 1600, 900
 
+
 delta = {
     pg.K_UP: (0, -5),
     pg.K_DOWN: (0, +5),
@@ -52,6 +53,7 @@ def main():
     bb_rct.centerx = random.randint(0, WIDTH)
     bb_rct.centery = random.randint(0, HEIGHT)
     vx, vy = +5, +5  # 練習2:爆弾の速度
+    accs = [a * 0.05 + 1 for a in range(1, 11)]  # 追加機能2:加速度のリスト
 
     clock = pg.time.Clock()
     tmr = 0
@@ -70,7 +72,6 @@ def main():
             if key_lst[k]:
                 sum_mv[0] += tpl[0]
                 sum_mv[1] += tpl[1]
-
 
         screen.blit(bg_img, [0, 0])
         kk_rct.move_ip(sum_mv[0], sum_mv[1])
@@ -93,7 +94,12 @@ def main():
             screen.blit(kk_imgs[7], kk_rct)
         else:
             screen.blit(kk_img, kk_rct)  # 練習3:こうかとんを移動
-            
+        avx, avy = accs[min(tmr//500, 9)], accs[min(tmr//500, 9)]
+        if not tmr%500 and tmr//500 <= 10:
+            vx *= avx  # 追加機能2:爆弾加速
+            vy *= avy
+        print(vx)
+        print(vy)
         bb_rct.move_ip(vx, vy)  # 練習2:爆弾を移動
         yoko, tate =  check_bound(bb_rct)
         if not yoko:  # 横方向にはみ出たとき
