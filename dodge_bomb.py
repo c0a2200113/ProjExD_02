@@ -47,8 +47,12 @@ def main():
     tmr = 0
     while True:
         for event in pg.event.get():
-            if event.type == pg.QUIT: 
+            if event.type == pg.QUIT:
                 return
+            
+        if kk_rct.colliderect(bb_rct):  # 練習5 衝突判定　bbとkk逆でもいい
+            print("Game Over")
+            return
         
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]
